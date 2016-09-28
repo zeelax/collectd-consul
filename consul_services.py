@@ -27,7 +27,7 @@ def dispatch_value(prefix, key, value, type, type_instance=None):
         type_instance = key
 
     log_verbose('Sending value: %s/%s=%s' % (prefix, type_instance, value))
-    if not value:
+    if not value and value != 0:
         return
     try:
         value = int(value)
@@ -70,7 +70,6 @@ def read_callback():
             dispatch_value(service, 'checks_passing', service_check_result[service]['passing'], 'gauge')
             dispatch_value(service, 'checks_warning', service_check_result[service]['warning'], 'gauge')
             dispatch_value(service, 'checks_critical', service_check_result[service]['critical'], 'gauge')
-            dispatch_value(service, 'checks_warning', service_check_result[service]['warning'], 'gauge')
             if service_check_result[service]['passing'] == service_check_result[service]['total']:
                 dispatch_value(service, 'isok', 1, 'gauge')
             else:
