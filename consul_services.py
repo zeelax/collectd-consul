@@ -66,14 +66,14 @@ def read_callback():
             service_check_result[service][check_status] += 1
             service_check_result[service]['total'] += 1
 
-        for service in service_check_result.keys():
-            dispatch_value(service, 'checks_passing', service_check_result[service]['passing'], 'gauge')
-            dispatch_value(service, 'checks_warning', service_check_result[service]['warning'], 'gauge')
-            dispatch_value(service, 'checks_critical', service_check_result[service]['critical'], 'gauge')
-            if service_check_result[service]['passing'] == service_check_result[service]['total']:
-                dispatch_value(service, 'isok', 1, 'gauge')
-            else:
-                dispatch_value(service, 'isok', 0, 'gauge')
+    for service in service_check_result.keys():
+        dispatch_value(service, 'checks_passing', service_check_result[service]['passing'], 'gauge')
+        dispatch_value(service, 'checks_warning', service_check_result[service]['warning'], 'gauge')
+        dispatch_value(service, 'checks_critical', service_check_result[service]['critical'], 'gauge')
+        if service_check_result[service]['passing'] == service_check_result[service]['total']:
+            dispatch_value(service, 'isok', 1, 'gauge')
+        else:
+            dispatch_value(service, 'isok', 0, 'gauge')
 
 # register callbacks
 collectd.register_config(configure_callback)
